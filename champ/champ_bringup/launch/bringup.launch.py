@@ -187,41 +187,23 @@ def generate_launch_description():
         ],
     )
 
-    base_to_footprint_ekf = Node(
-        package="robot_localization",
-        executable="ekf_node",
-        name="base_to_footprint_ekf",
-        output="screen",
-        parameters=[
-            {"base_link_frame": LaunchConfiguration("base_link_frame")},
-            {"use_sim_time": LaunchConfiguration("use_sim_time")},
-            os.path.join(
-                get_package_share_directory("champ_base"),
-                "config",
-                "ekf",
-                "base_to_footprint.yaml",
-            ),
-        ],
-        remappings=[("odometry/filtered", "odom/local")],
-    )
-
-    footprint_to_odom_ekf = Node(
-        package="robot_localization",
-        executable="ekf_node",
-        name="footprint_to_odom_ekf",
-        output="screen",
-        parameters=[
-            {"base_link_frame": LaunchConfiguration("base_link_frame")},
-            {"use_sim_time": LaunchConfiguration("use_sim_time")},
-            os.path.join(
-                get_package_share_directory("champ_base"),
-                "config",
-                "ekf",
-                "footprint_to_odom.yaml",
-            ),
-        ],
-        remappings=[("odometry/filtered", "odom")],
-    )
+    # base_to_footprint_ekf = Node(
+    #     package="robot_localization",
+    #     executable="ekf_node",
+    #     name="base_to_footprint_ekf",
+    #     output="screen",
+    #     parameters=[
+    #         {"base_link_frame": LaunchConfiguration("base_link_frame")},
+    #         {"use_sim_time": LaunchConfiguration("use_sim_time")},
+    #         os.path.join(
+    #             get_package_share_directory("champ_base"),
+    #             "config",
+    #             "ekf",
+    #             "base_to_footprint.yaml",
+    #         ),
+    #     ],
+    #     remappings=[("odometry/filtered", "odom/local")],
+    # )
 
     rviz2 = Node(
         package='rviz2',
@@ -258,8 +240,7 @@ def generate_launch_description():
             description_ld,
             quadruped_controller_node,
             state_estimator_node,
-            base_to_footprint_ekf,
-            footprint_to_odom_ekf,
+            # base_to_footprint_ekf,
             rviz2
         ]
     )
